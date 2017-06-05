@@ -1,0 +1,18 @@
+{
+  "index": {
+    "title": "Graphic title",
+    "author": "",
+    "description": "Description of graphic",
+    "keywords": "Comma, delimited, for, seo",
+    "url": "https://apps.bostonglobe.com/magazine/graphics/2017/06/boston-rocks",
+    "imageUrl": "https://apps.bostonglobe.com/path/to/image",
+    "section": "Magazine",
+    "sectionUrl": "http://www.bostonglobe.com/magazine",
+    "credits": "",
+    "teasers": [],
+    "social": true,
+    "meter": true,
+    "socialConnect": true,
+    "ads": false
+  }
+}
