@@ -1,11 +1,51 @@
 {
-	"copy": {
-		"google": {
-			"id": ""
-		},
-		"methode": {
-			"story": []
-		}
-	},
-	"path": "magazine/graphics/2017/06/boston-rocks"
+  "copy": {
+    "google": {
+      "id": ""
+    },
+    "methode": {
+      "story": [{
+          "path": "Boston/Content/Magazine/Stories/0611171RocknRoll.xml",
+          "filename": "rock-n-roll"
+        },
+        {
+          "path": "Boston/Content/Magazine/Stories/061117Foley.xml",
+          "filename": "foley"
+        },
+        {
+          "path": "Boston/Content/Magazine/Stories/061117SyncroStudio.xml",
+          "filename": "secret-studio"
+        },
+        {
+          "path": "Boston/Content/Magazine/Stories/061117V66.xml",
+          "filename": "v66"
+        },
+        {
+          "path": "Boston/Content/Magazine/Stories/061117Rat.xml",
+          "filename": "rat"
+        },
+        {
+          "path": "Boston/Content/Magazine/Stories/061117womenrock.xml",
+          "filename": "rockin-women"
+        },
+        {
+          "path": "Boston/Content/Magazine/Stories/061117radio.xml",
+          "filename": "radio"
+        },
+        {
+          "path": "Boston/Content/Magazine/Stories/061117hiphop.xml",
+          "filename": "hiphop"
+        },
+        {
+          "path": "Boston/Content/Magazine/Stories/061117modernlovers.xml",
+          "filename": "albums"
+        },
+        {
+          "path": "Boston/Content/Magazine/Stories/061117playlists.xml",
+          "filename": "playlist"
+        }
+      ]
+    }
+  },
+  "path": "magazine/graphics/2017/06/boston-rocks"
 }
