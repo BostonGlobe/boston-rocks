@@ -128,7 +128,7 @@ const createContentMarkup = (item) => {
 		},
 		ad: () => {
 			firstAdSlotted = true
-			return `{{#if meta.ads}}{{> base/base-ad-slot}}{{/if}}`
+			return `{{#if meta.index.ads}}{{> base/base-ad-slot}}{{/if}}`
 		},
 	}
 
