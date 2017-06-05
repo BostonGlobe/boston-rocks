@@ -2,7 +2,7 @@ const gulp = require('gulp')
 const fs = require('fs')
 const request = require('request')
 const jimp = require('jimp')
-const { groupBy, forIn } = require('lodash')
+const { groupBy, forIn, has } = require('lodash')
 
 const configPath = process.cwd() + '/data/config.json'
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))
@@ -144,7 +144,7 @@ const createHTML = (stories) =>
 		const { partials } = story
 		let contentMap = content.map(createContentMarkup).filter(item => item !== '')
 
-		if(story.partials.length) {
+		if(has(story, 'partials') && story.partials.length) {
 			partials.forEach((partial, pNumber) => {
 				let { file, position } = partial
 				contentMap.splice((position + pNumber), 0, `{{> ${file}}}`)

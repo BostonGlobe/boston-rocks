@@ -44,7 +44,9 @@
           "path": "Boston/Content/Magazine/Stories/061117playlists.xml",
           "filename": "playlist"
         }
-      ]
+      ],
+      "imageLibrary": "lazy-picturefill",
+      "imageClass": true
     }
   },
   "path": "magazine/graphics/2017/06/boston-rocks"
