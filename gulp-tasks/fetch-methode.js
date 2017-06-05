@@ -10,7 +10,7 @@ const methode = config.copy.methode
 const imageSizes = [ 640, 1280, 1920 ]
 const imageDirectory = 'assets/methode/'
 let imagesToDownload = []
-let firstAdSlotted = false
+let adSlot = 0
 
 const getImageDirectory = () => {
 	const dir = methode.imageDirectory || ''
@@ -87,7 +87,7 @@ const createFigure = ({ href, credit, caption, alt }) => {
 		<figure class='figure'>
 			${src}
 			<small class='figure__credit'>${credit}</small>
-			<figcaption class='figure__caption'>${caption}</figcaption>
+			<figcaption class='figure__caption benton-regular'>${caption}</figcaption>
 		</figure>
 	`.trim()
 }
@@ -108,7 +108,9 @@ const cleanP = (content) => {
 		.replace(/<i(.*?)>/g, '<em>') // replace i with em
 		.replace(/<\/i>/g, '</em>')
 
-	// hr
+	// br
+	if (stripped.match(/(\#\s*){3}/)) return '<br>'
+		// br
 	if (stripped.match(/(\*\s*){3}/)) return '<hr>'
 	//subhed
 	if (stripped.match(/subhead>/)) {
@@ -127,23 +129,34 @@ const createContentMarkup = (item) => {
 			return `<h3 class='section-hed miller-banner-regular'>${content}</h3>`
 		},
 		ad: () => {
-			firstAdSlotted = true
-			return `{{#if meta.index.ads}}{{> base/base-ad-slot}}{{/if}}`
+			adSlot += 1
+			return `{{#if ads}}{{> base/base-ad-slot ad='ad_bigbox${adSlot}'}}{{/if}}`
 		},
 	}
 
-	if (item.type === 'ad' && firstAdSlotted) return ''
+	if (item.type === 'ad' && adSlot > 2) return ''
 	return types[item.type] ? types[item.type](item) : ''
 }
 
 const createHTML = (stories) =>
 	stories.map((story, index) => {
 		const { content } = story.body
+		const { partials } = story
+		let contentMap = content.map(createContentMarkup).filter(item => item !== '')
+
+		if(story.partials.length) {
+			partials.forEach((partial, pNumber) => {
+				let { file, position } = partial
+				contentMap.splice((position + pNumber), 0, `{{> ${file}}}`)
+			})
+
+		adSlot = 0
+		}
 		// go thru item in content and create the proper markup
 		return `
-			<div class='methode__story methode__story--${index}'>
-				${content.map(createContentMarkup).join('\n')}
-			</div>
+			<section class='story__content methode__story--${index}'>
+				${contentMap.join('\n')}
+			</section>
 		`
 	}).join('')
 

@@ -2,29 +2,37 @@ const gulp = require('gulp')
 const request = require('request')
 const fs = require('fs')
 const cheerio = require('cheerio')
+const { groupBy, forIn } = require('lodash')
 
 gulp.task('fetch-teaser', (cb) => {
 	const metaFile = 'data/meta.json'
-
 	fs.readFile(metaFile, (err, data) => {
-		const urls = JSON.parse(data).index.teasers
-		if (urls.length) fetchAllTeasers(urls, cb)
-		else cb()
+		const pages = JSON.parse(data)
+		fetchAllTeasers(pages, cb)
 	})
 })
 
-const fetchAllTeasers = (urls, cb) => {
-	const data = []
-	const fetchNext = (index) => {
-		fetchTeaser(urls[index], (err, datum) => {
-			index++
-			if (!err && datum) data.push(datum)
+const fetchAllTeasers = (pages, cb) => {
+	const teaserData = {}
+	const size = Object.keys(pages).length
+	let completed = 0
+	forIn(pages, (page, name) => {
+		teaserData[name] = []
+		const fetchNext = (index) => {
+			fetchTeaser(page.teasers[index], (err, datum) => {
+				index++
+				if (!err && datum) teaserData[name].push(datum)
 
-			if (index < urls.length) fetchNext(index)
-			else writeData(data, cb)
-		})
-	}
-	fetchNext(0)
+				if (index < page.teasers.length) fetchNext(index)
+				else completed += 1
+
+				if (completed >= size) writeData(teaserData, cb)
+			})
+		}
+		fetchNext(0)
+	})
+
+
 }
 
 const fetchTeaser = (url, cb) => {
